@@ -1,30 +1,33 @@
-{% set version = '1.1-0' %}
+{% set version = '1.1-0.1' %}
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-diffusionmap
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: diffusionMap_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/diffusionMap_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/diffusionMap/diffusionMap_{{ version }}.tar.gz
-  sha256: 637b810140145fa0cbafb1c13da347c2f456c425334ae554d11a3107052e28d1
+    - {{ cran_mirror }}/src/contrib/diffusionMap_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/diffusionMap/diffusionMap_{{ version }}.tar.gz
+  sha256: b24cf841af2566ac36f4ede2885f2ff355a7905398444d6d89747315d99a8486
 
 build:
+  merge_build_host: True  # [win]
+  number: 0
   noarch: generic
-  number: 1000
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
+    - {{posix}}zip               # [win]
+  host:
     - r-base
     - r-matrix
     - r-igraph
     - r-scatterplot3d
-
   run:
     - r-base
     - r-matrix
@@ -33,20 +36,37 @@ requirements:
 
 test:
   commands:
-    - $R -e "library('diffusionMap')"  # [not win]
+    - $R -e "library('diffusionMap')"           # [not win]
     - "\"%R%\" -e \"library('diffusionMap')\""  # [win]
 
 about:
-  home: http://www.r-project.org, http://www.stat.berkeley.edu/~jwrichar/software.html
+  home: http://www.stat.berkeley.edu/~jwrichar/software.html
   license: GPL-2
   summary: Implements diffusion map method of data parametrization, including creation and visualization
     of diffusion map, clustering with diffusion K-means and regression using adaptive
     regression model.
-  license_family: GPL
+  license_family: GPL2
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
 
 extra:
   recipe-maintainers:
-    - bgruening
-    - daler
-    - johanneskoester
+    - conda-forge/r
     - rvalieris
+
+# Package: diffusionMap
+# Version: 1.1-0.1
+# Date: 2014-02-19
+# Title: Diffusion Map
+# Author: Joseph Richards <joeyrichar@gmail.com>
+# Maintainer: ORPHANED
+# Description: Implements diffusion map method of data parametrization, including creation and visualization of diffusion map, clustering with diffusion K-means and regression using adaptive regression model.
+# Depends: R (>= 2.4.0)
+# Imports: scatterplot3d, igraph, Matrix
+# License: GPL-2
+# URL: http://www.stat.berkeley.edu/~jwrichar/software.html
+# Packaged: 2018-07-21 17:16:50 UTC; hornik
+# NeedsCompilation: no
+# Repository: CRAN
+# Date/Publication: 2018-07-21 17:26:23 UTC
+# X-CRAN-Original-Maintainer: Joseph Richards <joeyrichar@gmail.com>
+# X-CRAN-Comment: Orphaned and corrected on 2018-07-21 as check problems were not corrected despite reminders.
