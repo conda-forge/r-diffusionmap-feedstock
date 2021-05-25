@@ -41,7 +41,7 @@ test:
 
 about:
   home: http://www.stat.berkeley.edu/~jwrichar/software.html
-  license: GPL-2
+  license: GPL-2.0-only
   summary: Implements diffusion map method of data parametrization, including creation and visualization
     of diffusion map, clustering with diffusion K-means and regression using adaptive
     regression model.
