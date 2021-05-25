@@ -3,7 +3,7 @@ About r-diffusionmap
 
 Home: http://www.stat.berkeley.edu/~jwrichar/software.html
 
-Package license: GPL-2
+Package license: GPL-2.0-only
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-diffusionmap-feedstock/blob/master/LICENSE.txt)
 
